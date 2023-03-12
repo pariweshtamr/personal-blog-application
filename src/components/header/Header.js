@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap"
 import Link from "next/link"
-import { Nav, Navbar, Row } from "react-bootstrap"
+import { Nav, Navbar } from "react-bootstrap"
 import { HeaderStyles } from "./headerStyles"
 
 const Header = () => {
@@ -19,7 +19,7 @@ const Header = () => {
               <Link href="/blog">Blog</Link>
               <Link href="/about">About</Link>
               <Link href="/resources">Resources</Link>
-              <Link href="/contact">Contact</Link>
+              <Link href="#contact">Contact</Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -20,7 +20,6 @@ export default function Home() {
         <RecentPosts />
         <Quote />
         <AboutComp />
-        <Smile />
       </Layout>
     </>
   )

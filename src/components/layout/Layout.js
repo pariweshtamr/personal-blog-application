@@ -1,4 +1,4 @@
-import Footer from "../footer/FOoter"
+import Footer from "../footer/Footer"
 import Header from "../header/Header"
 import { LayoutStyles } from "./layoutStyles"
 

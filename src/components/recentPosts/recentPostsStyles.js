@@ -2,8 +2,11 @@ import styled from "styled-components"
 
 export const RecentPostsStyles = styled.div`
   padding: 5rem 17.5rem;
+  background: var(--bg);
   h1 {
     color: var(--heading-color);
+    font-family: var(--title-font);
+    font-size: 48px;
   }
 
   .recent-posts {
@@ -42,7 +45,6 @@ export const RecentPostsStyles = styled.div`
           h3 {
             color: var(--heading-color);
             font-weight: 300;
-            letter-spacing: 2px;
           }
         }
       }
