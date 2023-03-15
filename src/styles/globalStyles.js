@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
 
 }
 
-button{
+.main-btn{
     display: flex;
       width: max-content;
       margin: auto;

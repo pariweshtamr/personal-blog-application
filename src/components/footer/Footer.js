@@ -42,7 +42,7 @@ const Footer = () => {
                 <input type="text" name="message" required />
               </div>
 
-              <button className="me-0">Submit</button>
+              <button className="me-0 main-btn">Submit</button>
             </form>
           </Col>
         </Row>

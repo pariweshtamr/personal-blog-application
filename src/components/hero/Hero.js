@@ -26,7 +26,7 @@ const Hero = () => {
               reading....
             </p>
 
-            <button>All Posts</button>
+            <button className="main-btn">All Posts</button>
           </Col>
         </Row>
       </div>

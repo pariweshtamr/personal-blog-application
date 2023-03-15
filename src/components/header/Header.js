@@ -1,9 +1,15 @@
-import { Container } from "react-bootstrap"
+import { Button, Container } from "react-bootstrap"
 import Link from "next/link"
 import { Nav, Navbar } from "react-bootstrap"
 import { HeaderStyles } from "./headerStyles"
+import { useSelector } from "react-redux"
 
 const Header = () => {
+  const { user } = useSelector((state) => state.auth)
+
+  console.log(user)
+
+  const signOut = () => {}
   return (
     <HeaderStyles>
       <Navbar expand="lg" className="navbar bg-light">
@@ -19,7 +25,14 @@ const Header = () => {
               <Link href="/blog">Blog</Link>
               <Link href="/about">About</Link>
               <Link href="/resources">Resources</Link>
-              <Link href="#contact">Contact</Link>
+              <Link href="/">Contact</Link>
+              {user?._id ? (
+                <>
+                  <Button onClick={() => signOut()}>Sign out</Button>
+                </>
+              ) : (
+                <Link href="/auth">Sign In</Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -9,7 +9,7 @@ export const LayoutStyles = styled.div`
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: auto;
-
+    background: var(--bg);
     font-family: "Avenir Light", sans-serif;
   }
 `

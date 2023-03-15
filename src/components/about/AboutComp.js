@@ -80,7 +80,7 @@ const AboutComp = ({ page }) => {
                   I&apos;m a great place for you to tell a story and let your
                   users know a little more about you.​
                 </p>
-                <button>Read More</button>
+                <button className="main-btn">Read More</button>
               </>
             )}
           </Col>
