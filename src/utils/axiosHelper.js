@@ -1,5 +1,4 @@
 import axios from "axios"
-import { useSession } from "next-auth/react"
 
 const apiRootUrl = process.env.NEXT_PUBLIC_API_ROOT_URL
 const authUrl = apiRootUrl + "/auth"
@@ -12,8 +11,7 @@ export const axiosProcessor = async ({
   token,
 }) => {
   try {
-    const jwtToken = token || sessionStorage.getItem("accessJwt")
-    const headers = isPrivate ? { Authorization: jwtToken } : null
+    const headers = isPrivate ? { Authorization: token } : null
     const { data } = await axios({
       method,
       url,

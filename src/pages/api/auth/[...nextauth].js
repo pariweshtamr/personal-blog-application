@@ -12,40 +12,44 @@ export const authOptions = {
   providers: [
     // ...add providers here
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: "Credentials",
-
-      credentials: {
-        email: { label: "Email", type: "email", placeholder: "Email address" },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "Password",
-        },
-      },
-
       async authorize(credentials, req) {
         const { email, password } = credentials
         const url = process.env.NEXT_PUBLIC_API_ROOT_URL
 
-        const { data } = await axios.post(url + "/auth/login", {
-          email,
-          password,
-        })
+        try {
+          const { data } = await axios.post(url + "/auth/login", {
+            email,
+            password,
+          })
 
-        if (data.status === "success") {
-          return data.tokens
-        } else return null
+          if (data.status === "error") {
+            throw new Error(data.message)
+          }
+          const { user, tokens } = data
+
+          if (user) {
+            return { ...user, ...tokens }
+          }
+          return null
+        } catch (error) {
+          console.log(error)
+          throw new Error(error.message)
+        }
       },
     }),
   ],
 
+  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
     async jwt({ token, user }) {
-      return { ...token, ...user }
+      if (user) {
+        token.data = user
+      }
+      return token
     },
     async session({ session, token }) {
-      session.user = token
+      session.user = token.data // token is the return from the jwt above
       return session
     },
   },

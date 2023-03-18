@@ -1,20 +1,16 @@
 import Link from "next/link"
 import { useRef, useState } from "react"
-import { Container } from "react-bootstrap"
+import { Container, Spinner } from "react-bootstrap"
 import { AuthStyles } from "../authStyles"
 import { VisibilityOutlined, VisibilityOffOutlined } from "@mui/icons-material"
-import { loginUser } from "@/utils/axiosHelper"
 import { toast } from "react-toastify"
-import { useDispatch } from "react-redux"
-import { loginAction } from "@/redux/Auth/authAction"
 import { signIn } from "next-auth/react"
 
 const LoginForm = () => {
-  const dispatch = useDispatch()
   const emailRef = useRef()
   const passwordRef = useRef()
-  const [isLoading, setIsLoading] = useState(false)
   const [reveal, setReveal] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -22,7 +18,19 @@ const LoginForm = () => {
     const email = emailRef.current.value
     const password = passwordRef.current.value
 
-    dispatch(loginAction({ email, password }))
+    setLoading(true)
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: true,
+      callbackUrl: "/admin",
+    })
+    setLoading(false)
+    if (res?.error) {
+      setLoading(false)
+      toast.error(res.error)
+      return
+    }
   }
 
   return (
@@ -61,8 +69,8 @@ const LoginForm = () => {
 
           <p className="ms-auto">Forgot your password?</p>
 
-          <button type="submit" disabled={isLoading}>
-            SIGN IN
+          <button type="submit" disabled={loading}>
+            {loading ? <Spinner animation="grow" variant="light" /> : "SIGN IN"}
           </button>
         </form>
         <p>

@@ -2,14 +2,11 @@ import { Button, Container } from "react-bootstrap"
 import Link from "next/link"
 import { Nav, Navbar } from "react-bootstrap"
 import { HeaderStyles } from "./headerStyles"
-import { useSelector } from "react-redux"
+import { signOut, useSession } from "next-auth/react"
 
 const Header = () => {
-  const { user } = useSelector((state) => state.auth)
+  const { data: session, status } = useSession()
 
-  console.log(user)
-
-  const signOut = () => {}
   return (
     <HeaderStyles>
       <Navbar expand="lg" className="navbar bg-light">
@@ -26,7 +23,7 @@ const Header = () => {
               <Link href="/about">About</Link>
               <Link href="/resources">Resources</Link>
               <Link href="/">Contact</Link>
-              {user?._id ? (
+              {status === "authenticated" ? (
                 <>
                   <Button onClick={() => signOut()}>Sign out</Button>
                 </>
