@@ -1,0 +1,25 @@
+@mixin extraLargeScreens() {
+  @media only screen and (width >= 1201px) {
+    @content;
+  }
+}
+@mixin desktop() {
+  @media only screen and (1024px <= width <= 1200px) {
+    @content;
+  }
+}
+@mixin laptop() {
+  @media only screen and (769px <= width <= 1023px) {
+    @content;
+  }
+}
+@mixin tablet() {
+  @media only screen and (481px <= width <= 768px) {
+    @content;
+  }
+}
+@mixin mobile() {
+  @media only screen and (320px <= width <= 480px) {
+    @content;
+  }
+}

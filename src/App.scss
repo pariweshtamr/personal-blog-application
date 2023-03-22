@@ -1,38 +1,33 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap");
+
+:root {
+  --main-color: #d14201;
+  --heading-color: #444444;
+  --text-color: #414141;
+  --title-font: "Libre Baskerville", serif;
+  --text-font: "Avenir Light", sans-serif;
+  --bg: #f8f9fa;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+a {
+  color: inherit !important;
+  text-decoration: none !important;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  &:hover {
+    color: var(--main-color) !important;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+section {
+  padding: 5rem 0;
+}
+
+.main-btn {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  width: max-content;
+  margin: auto;
+  padding: 0.8rem 3rem;
+  background: transparent;
+  color: gray;
+  border: 1px solid #000;
 }
