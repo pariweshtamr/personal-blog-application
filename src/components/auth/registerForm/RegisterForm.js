@@ -53,7 +53,7 @@ const RegisterForm = () => {
     if (passwordStrength !== 5) return
     setIsLoading(true)
     const { status, message } = await authAPI.registerUser(rest)
-    status === "success" && toast[status](message)
+    status === "success" ? toast[status](message) : toast[status](message)
     setIsLoading(false)
     setFormData(initialState)
   }

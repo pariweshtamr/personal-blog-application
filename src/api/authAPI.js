@@ -11,10 +11,42 @@ const authAPI = {
     try {
       const axiosData = {
         method: "POST",
-        url: authEP,
+        url: authEP + "/register",
+        data: formData,
+      }
+      const data = await requestApi(axiosData, true)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
+
+  loginUser: async (formData) => {
+    try {
+      const axiosData = {
+        method: "POST",
+        url: authEP + "/login",
         data: formData,
       }
       const data = await requestApi(axiosData, false)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
+  fetchUserInfo: async () => {
+    try {
+      const axiosData = {
+        method: "GET",
+        url: authEP,
+      }
+      const data = await requestApi(axiosData, true)
       return data
     } catch (error) {
       return {

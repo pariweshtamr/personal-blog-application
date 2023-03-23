@@ -1,7 +1,10 @@
 import "./header.scss"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { Button } from "@mui/material"
 const Header = () => {
+  const { user } = useSelector((state) => state.auth)
   return (
     <header>
       <Navbar expand="lg" className="navbar bg-light">
@@ -17,7 +20,11 @@ const Header = () => {
               <Link to="/blog">Blog</Link>
               <Link to="/about">About</Link>
               <Link to="/resources">Resources</Link>
-              <Link to="/auth">Sign In</Link>
+              {user?._id ? (
+                <Button>Sign Out</Button>
+              ) : (
+                <Link to="/auth">Sign In</Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,16 +1,29 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Container, Spinner } from "react-bootstrap"
 import { VisibilityOutlined, VisibilityOffOutlined } from "@mui/icons-material"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import "../authForms.scss"
+import { loginAction } from "../../../redux/Auth/authAction"
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const emailRef = useRef()
   const passwordRef = useRef()
   const [reveal, setReveal] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const { user, isLoading } = useSelector((state) => state.auth)
 
-  const handleSubmit = () => {}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const email = emailRef?.current?.value
+    const password = passwordRef?.current?.value
+    dispatch(loginAction({ email, password }))
+  }
+
+  useEffect(() => {
+    user?._id && navigate("/auth/admin")
+  }, [user, navigate])
 
   return (
     <div className="auth-form">
@@ -48,8 +61,12 @@ const LoginForm = () => {
 
           <p className="ms-auto">Forgot your password?</p>
 
-          <button type="submit" disabled={loading}>
-            {loading ? <Spinner animation="grow" variant="light" /> : "SIGN IN"}
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <Spinner animation="grow" variant="light" />
+            ) : (
+              "SIGN IN"
+            )}
           </button>
         </form>
         <p>

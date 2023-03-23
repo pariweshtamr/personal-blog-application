@@ -30,4 +30,10 @@ section {
   background: transparent;
   color: gray;
   border: 1px solid #000;
+  transition: 0.3s ease;
+
+  &:hover {
+    background: #f0f0f0;
+    transition: 0.3s ease;
+  }
 }
