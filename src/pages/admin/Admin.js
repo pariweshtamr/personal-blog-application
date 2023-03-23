@@ -1,8 +1,9 @@
 import { useRef, useState } from "react"
-import { ButtonGroup, Form, Modal } from "react-bootstrap"
+import { ButtonGroup, Container, Form, Modal } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import categoryAPI from "../../api/categoryAPI"
+import Widget from "../../components/widget/Widget"
 import "./admin.scss"
 
 const Admin = () => {
@@ -51,14 +52,20 @@ const Admin = () => {
           </ButtonGroup>
         </Modal.Body>
       </Modal>
-      <div className="d-flex">
-        <button className="main-btn" onClick={() => setShow(true)}>
-          Create a new category
-        </button>
+      <Container className="pt-3 pb-5">
         <Link to="/auth/dashboard" className="main-btn">
           Go to Admin Dashboard
         </Link>
-      </div>
+        <div className="widgets">
+          <Widget type="categories" />
+          <Widget type="blogs" />
+        </div>
+        <div className="d-flex">
+          <button className="main-btn" onClick={() => setShow(true)}>
+            Create a new category
+          </button>
+        </div>
+      </Container>
     </>
   )
 }
