@@ -8,12 +8,27 @@ const rootUrl =
 const blogEP = rootUrl + "/blog"
 
 const blogAPI = {
-  createPost: async (obj) => {
+  createBlog: async (obj) => {
     try {
       const axiosData = {
         method: "POST",
         url: blogEP,
         data: obj,
+      }
+      const data = await requestApi(axiosData, true)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
+  fetchBlogs: async () => {
+    try {
+      const axiosData = {
+        method: "GET",
+        url: blogEP + "/getAll",
       }
       const data = await requestApi(axiosData, true)
       return data

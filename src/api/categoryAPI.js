@@ -24,5 +24,22 @@ const categoryAPI = {
       }
     }
   },
+
+  getCategories: async () => {
+    try {
+      const axiosData = {
+        method: "GET",
+        url: catEP,
+      }
+
+      const data = await requestApi(axiosData, true)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
 }
 export default categoryAPI

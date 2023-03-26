@@ -1,14 +1,20 @@
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
-import { Link, useSearchParams } from "react-router-dom"
-import { categories } from "../../../constants/data"
+import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import "./categories.scss"
+import { useEffect } from "react"
+import { getCategoriesAction } from "../../../redux/Category/categoryAction"
 const Categories = () => {
-  const [searchParams] = useSearchParams()
-  const category = searchParams.get("category")
+  const dispatch = useDispatch()
+  const { categories } = useSelector((state) => state.category)
+
+  useEffect(() => {
+    !categories.length && dispatch(getCategoriesAction())
+  }, [categories, dispatch])
 
   return (
     <>
-      <Link to={`/auth/create?category=${category}`}>
+      <Link to="/auth/create">
         <button variant="contained" className="create-btn">
           Create Blog
         </button>
@@ -23,10 +29,10 @@ const Categories = () => {
         </TableHead>
         <TableBody>
           {categories.map((category) => (
-            <TableRow key={category.id}>
+            <TableRow key={category._id}>
               <TableCell>
-                <Link to={`/auth/dashboard?category=${category.type}`}>
-                  {category.type}
+                <Link to={`/auth/dashboard?category=${category.name}`}>
+                  {category.name}
                 </Link>
               </TableCell>
             </TableRow>

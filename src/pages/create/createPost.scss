@@ -7,13 +7,27 @@
 
   .create-form {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
 
     .title-input {
       flex: 1;
-      margin: 0 30px;
       font-size: 25px;
+      border: none;
+      border-bottom: 1px solid var(--text-color);
+      background: transparent;
+      &:focus {
+        outline: none;
+      }
+      &::placeholder {
+        letter-spacing: 2px;
+      }
+    }
+
+    .post-select {
+      padding: 0.7rem 1rem;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
     }
 
     .publish-btn {

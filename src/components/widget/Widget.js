@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 import { Person, RssFeed } from "@mui/icons-material"
 import "./widget.scss"
-const Widget = ({ type }) => {
+const Widget = ({ type, number }) => {
   let data
   switch (type) {
     case "categories":
       data = {
         title: "Categories",
-        number: 7,
+        number,
         link: <Link to="/auth/dashboard">See all categories</Link>,
         icon: (
           <Person
@@ -25,7 +25,7 @@ const Widget = ({ type }) => {
     case "blogs":
       data = {
         title: "Blogs",
-        number: 4,
+        number,
         link: <Link to="/auth/dashboard">See all blogs</Link>,
         icon: (
           <RssFeed

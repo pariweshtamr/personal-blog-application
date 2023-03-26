@@ -1,10 +1,13 @@
 import "./header.scss"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Button } from "@mui/material"
+import { logoutAction } from "../../redux/Auth/authAction"
 const Header = () => {
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth)
+
   return (
     <header>
       <Navbar expand="lg" className="navbar bg-light">
@@ -21,7 +24,9 @@ const Header = () => {
               <Link to="/about">About</Link>
               <Link to="/resources">Resources</Link>
               {user?._id ? (
-                <Button>Sign Out</Button>
+                <Button onClick={() => dispatch(logoutAction())}>
+                  Sign Out
+                </Button>
               ) : (
                 <Link to="/auth">Sign In</Link>
               )}

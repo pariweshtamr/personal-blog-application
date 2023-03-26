@@ -4,6 +4,7 @@ const initialState = {
   user: {},
   isLoading: false,
   isLoggedIn: false,
+  error: {},
 }
 
 const authSlice = createSlice({
@@ -18,16 +19,23 @@ const authSlice = createSlice({
       state.isLoggedIn = true
       state.user = payload
     },
+
     logoutSuccess: (state) => {
       state.isLoggedIn = false
       state.user = {}
       state.isLoading = false
+    },
+
+    requestFailed: (state, { payload }) => {
+      state.isLoading = false
+      state.error = payload
     },
   },
 })
 
 const { reducer, actions } = authSlice
 
-export const { requestPending, loginSuccess, logoutSuccess } = actions
+export const { requestPending, loginSuccess, logoutSuccess, requestFailed } =
+  actions
 
 export default reducer

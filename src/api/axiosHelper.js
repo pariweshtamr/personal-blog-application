@@ -15,7 +15,7 @@ export const requestNewAccessJwt = async (refreshJwt) => {
       },
     })
 
-    return data
+    return data.accessJwt
   }
   return { status: "error", message: "logour user" }
 }
@@ -37,6 +37,7 @@ export const requestApi = async (axiosInfo, sendAuth) => {
       }
     }
     const { data } = await axios(axiosInfo)
+
     return data
   } catch (error) {
     if (error.response?.status === 401) {

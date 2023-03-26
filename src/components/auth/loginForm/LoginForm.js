@@ -12,7 +12,7 @@ const LoginForm = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const [reveal, setReveal] = useState(false)
-  const { user, isLoading } = useSelector((state) => state.auth)
+  const { isLoggedIn, isLoading } = useSelector((state) => state.auth)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -22,8 +22,8 @@ const LoginForm = () => {
   }
 
   useEffect(() => {
-    user?._id && navigate("/auth/admin")
-  }, [user, navigate])
+    isLoggedIn && navigate("/auth/admin")
+  }, [isLoggedIn, navigate])
 
   return (
     <div className="auth-form">
