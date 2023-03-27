@@ -1,8 +1,8 @@
 import { images } from "../../../constants"
 import { MoreVert, FavoriteBorder } from "@mui/icons-material"
 import "./blogCard.scss"
-const BlogCard = () => {
-  const blog = {
+const BlogCard = ({ blog }) => {
+  const old = {
     img: images.rc1,
     date: "Nov 29, 2023",
     read: "2min",
@@ -13,18 +13,18 @@ const BlogCard = () => {
   }
   return (
     <div className="blog-card">
-      <img src={blog.img} alt="blog-img" />
+      <img src={blog.img || images.rc1} alt="blog-img" />
       <div className="card-bottom">
         <div className="d-flex justify-content-between align-items-start">
           <div className="blog-date">
-            <p>{blog.date}</p>
+            <p>{new Date(blog.createdAt).toLocaleDateString()}</p>
             <span>{blog.read}</span>
           </div>
           <MoreVert />
         </div>
         <h5>{blog.title}</h5>
 
-        <p>{blog.desc}</p>
+        <p>{blog.content}</p>
         <hr className="mt-5" />
         <div className="d-flex justify-content-between blog-likes">
           <div>{blog.views} views</div>

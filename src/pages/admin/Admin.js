@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react"
 import { ButtonGroup, Col, Container, Form, Modal, Row } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { toast } from "react-toastify"
-import categoryAPI from "../../api/categoryAPI"
 import Widget from "../../components/widget/Widget"
-import { getCategoriesAction } from "../../redux/Category/categoryAction"
+import {
+  createCategoryAction,
+  getCategoriesAction,
+} from "../../redux/Category/categoryAction"
 import { DataGrid } from "@mui/x-data-grid"
 import "./admin.scss"
 import { getBlogsAction } from "../../redux/Blog/blogAction"
@@ -30,7 +31,6 @@ const Admin = () => {
   const { categories } = useSelector((state) => state.category)
   const { blogs } = useSelector((state) => state.blog)
   const [show, setShow] = useState(false)
-  const formRef = useRef()
   const catRef = useRef()
 
   const numberOfBlogs = blogs?.length
@@ -42,8 +42,8 @@ const Admin = () => {
       return alert("Please enter a category name!")
     }
 
-    const { status, message } = await categoryAPI.createCategory({ name })
-    status && toast[status](message) && formRef.current.reset()
+    dispatch(createCategoryAction({ name }))
+    setShow(false)
   }
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const Admin = () => {
           <Modal.Title>Create Category</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex flex-column gap-4">
-          <Form ref={formRef}>
+          <Form>
             <Form.Label>Category Name</Form.Label>
             <Form.Control
               placeholder="Category name..."

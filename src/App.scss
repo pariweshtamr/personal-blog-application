@@ -37,3 +37,27 @@ section {
     transition: 0.3s ease;
   }
 }
+
+.back-btn {
+  border: none;
+  background: transparent;
+  transition: 0.5s all ease;
+
+  &:hover {
+    color: var(--main-color);
+    transition: 0.5s all ease;
+  }
+
+  span {
+    text-decoration: underline;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--main-color);
+    transition: 0.5s all ease;
+
+    &:hover {
+      color: var(--text-color);
+      transition: 0.5s all ease;
+    }
+  }
+}

@@ -4,6 +4,7 @@ const initialState = {
   categories: [],
   selectedCategory: {},
   isLoading: false,
+  response: {},
 }
 
 const categorySlice = createSlice({
@@ -12,6 +13,10 @@ const categorySlice = createSlice({
   reducers: {
     requestPending: (state) => {
       state.isLoading = true
+    },
+    requestSuccess: (state, { payload }) => {
+      state.isLoading = false
+      state.response = payload
     },
     getCategoriesSuccess: (state, { payload }) => {
       state.isLoading = false
@@ -30,6 +35,7 @@ export const {
   requestPending,
   getSingleCategorySuccess,
   getCategoriesSuccess,
+  requestSuccess,
 } = actions
 
 export default reducer

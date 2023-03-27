@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
   blogs: [],
   selectedBlog: {},
+  response: {},
   isLoading: false,
 }
 
@@ -12,6 +13,10 @@ const blogSlice = createSlice({
   reducers: {
     requestPending: (state) => {
       state.isLoading = true
+    },
+    createBlogSuccess: (state, { payload }) => {
+      state.isLoading = false
+      state.response = payload
     },
     getBlogsSuccess: (state, { payload }) => {
       state.blogs = payload
@@ -26,5 +31,10 @@ const blogSlice = createSlice({
 
 const { reducer, actions } = blogSlice
 
-export const { requestPending, getBlogsSuccess, getSingleBlogSuccess } = actions
+export const {
+  requestPending,
+  getBlogsSuccess,
+  getSingleBlogSuccess,
+  createBlogSuccess,
+} = actions
 export default reducer

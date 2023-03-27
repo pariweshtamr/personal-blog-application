@@ -1,26 +1,28 @@
 import { Container, Form } from "react-bootstrap"
 import { AddCircle } from "@mui/icons-material"
 import { useEffect, useRef, useState } from "react"
-import blogAPI from "../../api/blogAPI"
 import JoditEditor from "jodit-react"
 import "./createPost.scss"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
 import { getCategoriesAction } from "../../redux/Category/categoryAction"
-
-const config = {
-  readonly: false,
-  placeholder: "Start typing...",
-}
+import { useNavigate } from "react-router-dom"
+import { createBlogAction } from "../../redux/Blog/blogAction"
 
 const CreatePost = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [file, setFile] = useState("")
   const titleRef = useRef()
+  const formRef = useRef()
   const editor = useRef(null)
   const [category, setCategory] = useState("")
-  const [cats, setCats] = useState([])
   const { categories } = useSelector((state) => state.category)
+
+  const config = {
+    readonly: false,
+    placeholder: "Start typing...",
+  }
 
   const url =
     "https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80 "
@@ -56,18 +58,22 @@ const CreatePost = () => {
     }
 
     // submit the form to server
-    const { status, message } = await blogAPI.createBlog(post)
 
-    status && toast[status](message)
-
-    console.log(status, message)
+    dispatch(createBlogAction(post))
+    formRef.current.reset()
   }
 
   return (
     <Container className="create-container pb-5">
-      <img src={url} alt="" />
+      <button
+        className="back-btn mb-4"
+        onClick={() => navigate("/auth/dashboard")}
+      >
+        &lt; <span>Back</span>
+      </button>
+      <img src={url} alt="banner-img" />
 
-      <Form className="my-3 create-form">
+      <Form className="my-3 create-form" ref={formRef}>
         <div className="d-flex align-items-center py-2 pb-5 gap-5">
           <label htmlFor="fileInput">
             <AddCircle
@@ -103,7 +109,7 @@ const CreatePost = () => {
             </option>
             {categories.length &&
               categories.map((cat) => (
-                <option value={cat._id} key={cat._id}>
+                <option value={cat.name} key={cat._id}>
                   {cat.name}
                 </option>
               ))}
