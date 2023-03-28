@@ -5,6 +5,7 @@ import About from "../pages/about/About"
 import Admin from "../pages/admin/Admin"
 import Auth from "../pages/auth/Auth"
 import Blog from "../pages/blog/Blog"
+import SingleBlog from "../pages/blog/SingleBlog"
 import CreatePost from "../pages/create/CreatePost"
 import Dashboard from "../pages/dashboard/Dashboard"
 import Home from "../pages/home/Home"
@@ -25,6 +26,10 @@ const Routers = () => {
         <Route path="auth" element={<Auth />} />
         <Route path="about" element={<About />} />
         <Route path="blog" element={<Blog />} />
+        <Route
+          path="auth/blog/:slug"
+          element={isLoggedIn ? <SingleBlog /> : <Auth />}
+        />
 
         <Route path="auth/admin" element={isLoggedIn ? <Admin /> : <Auth />} />
         <Route

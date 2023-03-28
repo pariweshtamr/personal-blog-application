@@ -39,6 +39,21 @@ const blogAPI = {
       }
     }
   },
+  fetchSingleBlog: async (_id) => {
+    try {
+      const axiosData = {
+        method: "GET",
+        url: `${blogEP}/find/${_id}`,
+      }
+      const data = await requestApi(axiosData, true)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
 }
 
 export default blogAPI

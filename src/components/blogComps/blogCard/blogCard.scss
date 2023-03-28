@@ -28,7 +28,11 @@
       cursor: pointer;
     }
     h5 {
+      cursor: pointer;
       font-size: 23px;
+      &:hover {
+        color: var(--main-color);
+      }
     }
     p {
       opacity: 80%;

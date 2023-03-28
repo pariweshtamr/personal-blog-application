@@ -43,16 +43,6 @@ export const requestApi = async (axiosInfo, sendAuth) => {
     if (error.response?.status === 401) {
       return { status: "error", message: "logout user" }
     }
-    // if (
-    //     error.response?.status === 403 &&
-    //     error.response?.data?.message === "jwt expired"
-    // ) {
-    //     const { accessJWT } = await getNewAccessJWT();
-
-    //     if (accessJWT) {
-    //         return requestApi(axiosInfo, sendAuth);
-    //     }
-    // }
 
     return error.response.data || { status: "error", message: error.message }
   }

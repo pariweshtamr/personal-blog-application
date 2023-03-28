@@ -1,6 +1,11 @@
 import { toast } from "react-toastify"
 import blogAPI from "../../api/blogAPI"
-import { createBlogSuccess, getBlogsSuccess, requestPending } from "./blogSlice"
+import {
+  createBlogSuccess,
+  getBlogsSuccess,
+  getSingleBlogSuccess,
+  requestPending,
+} from "./blogSlice"
 
 export const getBlogsAction = () => async (dispatch) => {
   try {
@@ -11,6 +16,23 @@ export const getBlogsAction = () => async (dispatch) => {
     status === "success"
       ? dispatch(getBlogsSuccess(blogs))
       : dispatch(getBlogsSuccess([]))
+  } catch (error) {
+    return {
+      status: "error",
+      message: error.message,
+    }
+  }
+}
+
+export const getSingleBlogAction = (_id) => async (dispatch) => {
+  try {
+    dispatch(requestPending())
+
+    const { status, blog } = await blogAPI.fetchSingleBlog(_id)
+
+    status === "success"
+      ? dispatch(getSingleBlogSuccess(blog))
+      : dispatch(getSingleBlogSuccess({}))
   } catch (error) {
     return {
       status: "error",
