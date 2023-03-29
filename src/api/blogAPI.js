@@ -39,11 +39,11 @@ const blogAPI = {
       }
     }
   },
-  fetchSingleBlog: async (_id) => {
+  fetchSingleBlog: async (slug) => {
     try {
       const axiosData = {
         method: "GET",
-        url: `${blogEP}/find/${_id}`,
+        url: `${blogEP}/find/${slug}`,
       }
       const data = await requestApi(axiosData, true)
       return data

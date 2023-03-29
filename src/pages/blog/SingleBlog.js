@@ -4,18 +4,26 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { getSingleBlogAction } from "../../redux/Blog/blogAction"
 import { MoreVert, FavoriteBorder } from "@mui/icons-material"
-import "./singleBlog.scss"
 import images from "../../constants/images"
+import DOMPurify from "dompurify"
+import parse from "html-react-parser"
+import "./singleBlog.scss"
+
 const SingleBlog = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
   const { selectedBlog } = useSelector((state) => state.blog)
-  const { _id } = useParams()
+  const { slug } = useParams()
 
   useEffect(() => {
-    dispatch(getSingleBlogAction(_id))
-  }, [dispatch, _id])
+    dispatch(getSingleBlogAction(slug))
+  }, [dispatch, slug])
+
+  let clean = DOMPurify.sanitize(selectedBlog.content, {
+    USE_PROFILES: { html: true },
+  })
+
   return (
     <Container className="px-5 single-blog-container">
       <h6 onClick={() => navigate("/auth/dashboard")}>All Posts</h6>
@@ -37,7 +45,7 @@ const SingleBlog = () => {
 
         <div className="blog-content">
           <img src={selectedBlog?.img || images.blog1} alt="blog-img" />
-          <div className="content">{selectedBlog?.content}</div>
+          <div className="content">{parse(clean)}</div>
         </div>
 
         <div className="share mt-5">sdf</div>

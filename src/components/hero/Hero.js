@@ -1,5 +1,6 @@
 import { Col, Row } from "react-bootstrap"
 import { images } from "../../constants"
+import { Link } from "react-router-dom"
 import "./hero.scss"
 const Hero = () => {
   return (
@@ -19,7 +20,9 @@ const Hero = () => {
               reading....
             </p>
 
-            <button className="main-btn">All Posts</button>
+            <Link to="/blog">
+              <button className="main-btn">All Posts</button>
+            </Link>
           </Col>
         </Row>
       </div>

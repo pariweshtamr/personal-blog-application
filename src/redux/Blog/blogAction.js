@@ -24,11 +24,11 @@ export const getBlogsAction = () => async (dispatch) => {
   }
 }
 
-export const getSingleBlogAction = (_id) => async (dispatch) => {
+export const getSingleBlogAction = (slug) => async (dispatch) => {
   try {
     dispatch(requestPending())
 
-    const { status, blog } = await blogAPI.fetchSingleBlog(_id)
+    const { status, blog } = await blogAPI.fetchSingleBlog(slug)
 
     status === "success"
       ? dispatch(getSingleBlogSuccess(blog))

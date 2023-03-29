@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getCategoriesAction } from "../../redux/Category/categoryAction"
 import { useNavigate } from "react-router-dom"
 import { createBlogAction } from "../../redux/Blog/blogAction"
+import DOMPurify from "dompurify"
 
 const CreatePost = () => {
   const dispatch = useDispatch()
@@ -47,8 +48,10 @@ const CreatePost = () => {
   const savePost = async (e) => {
     e.preventDefault()
     const title = titleRef?.current?.value
-    const content = editor?.current?.value
-    const post = { title, category, content }
+    const dirtyHtml = editor?.current?.value
+    const cleanContent = DOMPurify.sanitize(dirtyHtml)
+
+    const post = { title, category, cleanContent }
 
     if (title.trim() === "") {
       return toast.warning("Title is required!")

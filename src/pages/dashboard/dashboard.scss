@@ -1,3 +1,16 @@
+.create-btn {
+  background: var(--main-color);
+  color: #f0f0f0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+  &:hover {
+    background: #f0f0f0;
+    color: var(--main-color);
+    transition: 0.3s ease;
+  }
+}
+
 .category-tabs {
   display: flex;
   justify-content: center;

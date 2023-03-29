@@ -41,9 +41,7 @@ const Dashboard = () => {
           </button>
 
           <Link to="/auth/create">
-            <button variant="contained" className="create-btn">
-              Create Blog
-            </button>
+            <button className="create-btn main-btn">Create Blog</button>
           </Link>
         </div>
 
