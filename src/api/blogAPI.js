@@ -24,6 +24,21 @@ const blogAPI = {
       }
     }
   },
+  deleteBlog: async (id) => {
+    try {
+      const axiosData = {
+        method: "DELETE",
+        url: `${blogEP}/deleteBlog/${id}`,
+      }
+      const data = await requestApi(axiosData, true)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
   fetchBlogs: async () => {
     try {
       const axiosData = {

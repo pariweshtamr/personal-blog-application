@@ -5,6 +5,7 @@ import {
   getBlogsSuccess,
   getSingleBlogSuccess,
   requestPending,
+  requestSuccess,
 } from "./blogSlice"
 
 export const getBlogsAction = () => async (dispatch) => {
@@ -48,10 +49,29 @@ export const createBlogAction = (post) => async (dispatch) => {
     const { status, message } = await blogAPI.createBlog(post)
 
     status === "success"
-      ? dispatch(createBlogSuccess({ status, message })) &&
+      ? dispatch(requestSuccess({ status, message })) &&
         dispatch(getBlogsAction()) &&
         toast[status](message)
-      : dispatch(createBlogSuccess()) && toast[status](message)
+      : dispatch(requestSuccess()) && toast[status](message)
+  } catch (error) {
+    return {
+      status: "error",
+      message: error.message,
+    }
+  }
+}
+
+export const deleteBlogAction = (_id) => async (dispatch) => {
+  try {
+    dispatch(requestPending())
+
+    const { status, message } = await blogAPI.deleteBlog(_id)
+
+    status === "success"
+      ? dispatch(requestSuccess({ status, message })) &&
+        dispatch(getBlogsAction()) &&
+        toast[status](message)
+      : dispatch(requestSuccess()) && toast[status](message)
   } catch (error) {
     return {
       status: "error",

@@ -4,36 +4,9 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: 0.3s ease;
-  &:hover {
-    background: #f0f0f0;
-    color: var(--main-color);
-    transition: 0.3s ease;
-  }
 }
 
-.category-tabs {
+.blogs-list {
   display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  padding: 2rem 0 5rem 0;
-
-  .category-tab {
-    border: 1px solid var(--main-color);
-    padding: 0.3rem 1rem;
-    border-radius: 5px;
-    text-transform: capitalize;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s ease;
-    &.active {
-      background: var(--main-color);
-      color: #fff;
-    }
-
-    &:hover {
-      background: var(--main-color);
-      color: #fff;
-      transition: 0.2s ease;
-    }
-  }
+  flex-wrap: wrap;
 }

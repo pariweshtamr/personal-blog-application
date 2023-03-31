@@ -14,7 +14,7 @@ const blogSlice = createSlice({
     requestPending: (state) => {
       state.isLoading = true
     },
-    createBlogSuccess: (state, { payload }) => {
+    requestSuccess: (state, { payload }) => {
       state.isLoading = false
       state.response = payload
     },
@@ -35,6 +35,6 @@ export const {
   requestPending,
   getBlogsSuccess,
   getSingleBlogSuccess,
-  createBlogSuccess,
+  requestSuccess,
 } = actions
 export default reducer

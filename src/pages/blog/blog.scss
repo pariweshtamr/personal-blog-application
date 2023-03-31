@@ -1,7 +1,6 @@
 .blog-section {
   padding: 2rem 16rem;
   .blog-container {
-    max-width: 910px;
     h1 {
       font-family: var(--title-font);
       color: var(#414141);
@@ -9,7 +8,8 @@
       margin-bottom: 2rem;
     }
     .blog-cards {
-      justify-content: space-between;
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 }

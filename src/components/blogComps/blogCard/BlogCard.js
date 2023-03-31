@@ -1,17 +1,34 @@
 import { images } from "../../../constants"
-import { MoreVert, FavoriteBorder } from "@mui/icons-material"
-import "./blogCard.scss"
+import {
+  MoreVert,
+  FavoriteBorder,
+  Share,
+  ToggleOn,
+  ToggleOff,
+} from "@mui/icons-material"
+import { OverlayTrigger, Popover } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import DOMPurify from "dompurify"
 import parse from "html-react-parser"
+import "./blogCard.scss"
+
 const BlogCard = ({ blog }) => {
-  let clean = DOMPurify.sanitize(blog.content, {
+  let clean = DOMPurify.sanitize(blog?.content, {
     USE_PROFILES: { html: true },
   })
 
   return (
     <div className="blog-card">
-      <Link to={`/auth/blog/${blog.slug}`}>
+      {blog.status === "active" ? (
+        <div className="status-toggle">
+          <ToggleOn />
+        </div>
+      ) : (
+        <div className="status-toggle inactive">
+          <ToggleOff />
+        </div>
+      )}
+      <Link to={`/auth/blog/${blog?.slug}`}>
         <img src={blog?.img || images.rc1} alt="blog-img" />
       </Link>
 
@@ -21,7 +38,19 @@ const BlogCard = ({ blog }) => {
             <p>{new Date(blog?.createdAt).toLocaleDateString()}</p>
             <span>{blog?.read || "2 min read"}</span>
           </div>
-          <MoreVert />
+          <OverlayTrigger
+            trigger="click"
+            placement="left"
+            overlay={
+              <Popover id="popover-positioned-left">
+                <Popover.Body>
+                  <Share /> Share
+                </Popover.Body>
+              </Popover>
+            }
+          >
+            <MoreVert />
+          </OverlayTrigger>
         </div>
         <Link to={`/auth/blog/${blog?.slug}`}>
           <h5>{blog?.title}</h5>
