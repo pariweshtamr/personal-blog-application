@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Container, Modal, Row } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import {
   deleteBlogAction,
   getSingleBlogAction,
@@ -29,6 +29,10 @@ const SingleBlog = () => {
   const handleDelete = () => {
     dispatch(deleteBlogAction(postToDelete))
     navigate("/auth/dashboard")
+  }
+
+  const handleEdit = () => {
+    navigate(`/auth/blog/edit/${slug}`)
   }
 
   useEffect(() => {
@@ -82,7 +86,7 @@ const SingleBlog = () => {
           <div className="titles">
             <h1>{selectedBlog?.title}</h1>
             <div className="d-flex gap-3 align-items-center">
-              <Edit />
+              <Edit onClick={handleEdit} />
               <Delete
                 style={{ color: "var(--main-color)" }}
                 onClick={() => handleModal(selectedBlog._id)}

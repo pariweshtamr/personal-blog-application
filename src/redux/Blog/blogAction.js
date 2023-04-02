@@ -1,7 +1,6 @@
 import { toast } from "react-toastify"
 import blogAPI from "../../api/blogAPI"
 import {
-  createBlogSuccess,
   getBlogsSuccess,
   getSingleBlogSuccess,
   requestPending,
@@ -53,6 +52,24 @@ export const createBlogAction = (post) => async (dispatch) => {
         dispatch(getBlogsAction()) &&
         toast[status](message)
       : dispatch(requestSuccess()) && toast[status](message)
+  } catch (error) {
+    return {
+      status: "error",
+      message: error.message,
+    }
+  }
+}
+
+export const editBlogAction = (updatedPost) => async (dispatch) => {
+  try {
+    dispatch(requestPending())
+
+    const { status, message, updatedBlog } = await blogAPI.editBlog(updatedPost)
+
+    status === "success"
+      ? dispatch(getSingleBlogSuccess(updatedBlog)) && toast[status](message)
+      : dispatch(getSingleBlogSuccess({})) &&
+        toast.error("Unable to edit blog post!")
   } catch (error) {
     return {
       status: "error",

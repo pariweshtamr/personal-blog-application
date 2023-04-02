@@ -10,6 +10,7 @@ import CreatePost from "../pages/create/CreatePost"
 import Dashboard from "../pages/dashboard/Dashboard"
 import Home from "../pages/home/Home"
 import { autoLoginAction } from "../redux/Auth/authAction"
+import EditPost from "../pages/edit/EditPost"
 
 const Routers = () => {
   const dispatch = useDispatch()
@@ -30,16 +31,19 @@ const Routers = () => {
           path="auth/blog/:slug"
           element={isLoggedIn ? <SingleBlog /> : <Auth />}
         />
-
-        <Route path="auth/admin" element={isLoggedIn ? <Admin /> : <Auth />} />
-        <Route
-          path="auth/dashboard"
-          element={isLoggedIn ? <Dashboard /> : <Auth />}
-        />
         <Route
           path="auth/create"
           element={isLoggedIn ? <CreatePost /> : <Auth />}
         />
+        <Route
+          path="auth/blog/edit/:slug"
+          element={isLoggedIn ? <EditPost /> : <Auth />}
+        />
+        <Route
+          path="auth/dashboard"
+          element={isLoggedIn ? <Dashboard /> : <Auth />}
+        />
+        <Route path="auth/admin" element={isLoggedIn ? <Admin /> : <Auth />} />
       </Route>
     </Routes>
   )

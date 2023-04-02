@@ -24,6 +24,22 @@ const blogAPI = {
       }
     }
   },
+  editBlog: async (post) => {
+    try {
+      const axiosData = {
+        method: "PUT",
+        url: `${blogEP}/updateBlog/${post.slug}`,
+        data: post,
+      }
+      const data = await requestApi(axiosData, true)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
   deleteBlog: async (id) => {
     try {
       const axiosData = {

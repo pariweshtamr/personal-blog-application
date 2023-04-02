@@ -2,13 +2,13 @@ import { Container, Form } from "react-bootstrap"
 import { AddCircle } from "@mui/icons-material"
 import { useEffect, useRef, useState } from "react"
 import JoditEditor from "jodit-react"
-import "./createPost.scss"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
 import { getCategoriesAction } from "../../redux/Category/categoryAction"
 import { useNavigate } from "react-router-dom"
 import { createBlogAction } from "../../redux/Blog/blogAction"
 import DOMPurify from "dompurify"
+import "./createPost.scss"
 
 const CreatePost = () => {
   const dispatch = useDispatch()
@@ -76,7 +76,7 @@ const CreatePost = () => {
       </button>
       <img src={url} alt="banner-img" />
 
-      <Form className="my-3 create-form" ref={formRef}>
+      <Form className="my-3 blog-form" ref={formRef}>
         <div className="d-flex align-items-center py-2 pb-5 gap-5">
           <label htmlFor="fileInput">
             <AddCircle
