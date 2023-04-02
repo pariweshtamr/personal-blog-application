@@ -29,8 +29,9 @@ const Routers = () => {
         <Route path="blog" element={<Blog />} />
         <Route
           path="auth/blog/:slug"
-          element={isLoggedIn ? <SingleBlog /> : <Auth />}
+          element={isLoggedIn ? <SingleBlog page="authorized" /> : <Auth />}
         />
+        <Route path="/blog/:slug" element={<SingleBlog page="random" />} />
         <Route
           path="auth/create"
           element={isLoggedIn ? <CreatePost /> : <Auth />}

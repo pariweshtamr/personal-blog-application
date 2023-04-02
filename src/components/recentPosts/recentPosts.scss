@@ -27,11 +27,7 @@
             font-size: 0.75rem;
             color: gray;
           }
-          &:nth-child(2) {
-            font-size: 0.9rem;
-            color: gray;
-            font-weight: 300;
-          }
+
           &:nth-child(4) {
             font-size: 0.75rem;
             color: gray;
@@ -40,9 +36,26 @@
         }
 
         .right-body {
+          &:hover {
+            h3 {
+              color: var(--main-color);
+            }
+          }
           h3 {
             color: var(--heading-color);
             font-weight: 300;
+          }
+
+          div {
+            font-size: 1rem;
+            color: gray;
+            font-weight: 300;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
           }
         }
       }

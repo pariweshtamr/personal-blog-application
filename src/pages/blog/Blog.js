@@ -2,7 +2,7 @@ import { Col, Container } from "react-bootstrap"
 import BlogCard from "../../components/blogComps/blogCard/BlogCard"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { getBlogsAction } from "../../redux/Blog/blogAction"
+import { getActiveBlogsAction } from "../../redux/Blog/blogAction"
 import { getCategoriesAction } from "../../redux/Category/categoryAction"
 import { motion } from "framer-motion"
 import "./blog.scss"
@@ -13,6 +13,7 @@ const Blog = () => {
   const { categories } = useSelector((state) => state.category)
   const [animateCard, setAnimateCard] = useState({ y: 0, opactiy: 1 })
   const [activeFilter, setActiveFilter] = useState("All")
+  const [shouldFetch, setShouldFetch] = useState(true)
   const [filteredBlogs, setFilteredBlogs] = useState(blogs)
 
   const handleCategoryFilter = (category) => {
@@ -31,9 +32,11 @@ const Blog = () => {
 
   useEffect(() => {
     dispatch(getCategoriesAction())
-    !blogs.length && dispatch(getBlogsAction())
+    !blogs.length && setShouldFetch(true)
+    shouldFetch && dispatch(getActiveBlogsAction())
+    setShouldFetch(false)
     setFilteredBlogs(blogs)
-  }, [dispatch, blogs])
+  }, [dispatch, blogs, shouldFetch])
 
   return (
     <section className="blog-section">

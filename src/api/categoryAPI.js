@@ -32,7 +32,7 @@ const categoryAPI = {
         url: catEP,
       }
 
-      const data = await requestApi(axiosData, true)
+      const data = await requestApi(axiosData, false)
       return data
     } catch (error) {
       return {

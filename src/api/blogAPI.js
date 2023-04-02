@@ -40,6 +40,22 @@ const blogAPI = {
       }
     }
   },
+  editBlogStatus: async (post) => {
+    try {
+      const axiosData = {
+        method: "PATCH",
+        url: `${blogEP}/updateStatus/${post.slug}`,
+        data: post,
+      }
+      const data = await requestApi(axiosData, true)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
   deleteBlog: async (id) => {
     try {
       const axiosData = {
@@ -70,13 +86,28 @@ const blogAPI = {
       }
     }
   },
+  fetchActiveBlogs: async () => {
+    try {
+      const axiosData = {
+        method: "GET",
+        url: blogEP + "/getActiveBlogs",
+      }
+      const data = await requestApi(axiosData, false)
+      return data
+    } catch (error) {
+      return {
+        status: "error",
+        message: error.message,
+      }
+    }
+  },
   fetchSingleBlog: async (slug) => {
     try {
       const axiosData = {
         method: "GET",
         url: `${blogEP}/find/${slug}`,
       }
-      const data = await requestApi(axiosData, true)
+      const data = await requestApi(axiosData, false)
       return data
     } catch (error) {
       return {

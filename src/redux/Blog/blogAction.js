@@ -23,6 +23,22 @@ export const getBlogsAction = () => async (dispatch) => {
     }
   }
 }
+export const getActiveBlogsAction = () => async (dispatch) => {
+  try {
+    dispatch(requestPending())
+
+    const { status, activeBlogs } = await blogAPI.fetchActiveBlogs()
+
+    status === "success"
+      ? dispatch(getBlogsSuccess(activeBlogs))
+      : dispatch(getBlogsSuccess([]))
+  } catch (error) {
+    return {
+      status: "error",
+      message: error.message,
+    }
+  }
+}
 
 export const getSingleBlogAction = (slug) => async (dispatch) => {
   try {
@@ -32,7 +48,7 @@ export const getSingleBlogAction = (slug) => async (dispatch) => {
 
     status === "success"
       ? dispatch(getSingleBlogSuccess(blog))
-      : dispatch(getSingleBlogSuccess({}))
+      : dispatch(getSingleBlogSuccess({ error: " Unable to fetch blog!" }))
   } catch (error) {
     return {
       status: "error",
@@ -68,6 +84,26 @@ export const editBlogAction = (updatedPost) => async (dispatch) => {
 
     status === "success"
       ? dispatch(getSingleBlogSuccess(updatedBlog)) && toast[status](message)
+      : dispatch(getSingleBlogSuccess({})) &&
+        toast.error("Unable to edit blog post!")
+  } catch (error) {
+    return {
+      status: "error",
+      message: error.message,
+    }
+  }
+}
+
+export const editBlogStatusAction = (post) => async (dispatch) => {
+  try {
+    dispatch(requestPending())
+
+    const { status, message, updatedBlog } = await blogAPI.editBlogStatus(post)
+
+    status === "success"
+      ? dispatch(getSingleBlogSuccess(updatedBlog)) &&
+        getBlogsAction() &&
+        toast[status](message)
       : dispatch(getSingleBlogSuccess({})) &&
         toast.error("Unable to edit blog post!")
   } catch (error) {

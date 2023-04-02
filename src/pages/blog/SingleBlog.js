@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react"
-import { Button, Container, Modal, Row } from "react-bootstrap"
+import { Container, Modal, Row } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import {
   deleteBlogAction,
   getSingleBlogAction,
+  editBlogStatusAction,
 } from "../../redux/Blog/blogAction"
-import { MoreVert, FavoriteBorder, Edit, Delete } from "@mui/icons-material"
+import {
+  MoreVert,
+  FavoriteBorder,
+  Edit,
+  Delete,
+  CheckCircle,
+} from "@mui/icons-material"
 import images from "../../constants/images"
 import DOMPurify from "dompurify"
 import parse from "html-react-parser"
 import "./singleBlog.scss"
 
-const SingleBlog = () => {
+const SingleBlog = ({ page }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [comment, setComment] = useState("")
   const [show, setShow] = useState(false)
   const [postToDelete, setPostToDelete] = useState("")
   const { selectedBlog } = useSelector((state) => state.blog)
+  const { user } = useSelector((state) => state.auth)
   const { slug } = useParams()
 
   const handleModal = (id) => {
@@ -33,6 +41,14 @@ const SingleBlog = () => {
 
   const handleEdit = () => {
     navigate(`/auth/blog/edit/${slug}`)
+  }
+
+  const handlePostStatus = (status) => {
+    if (status === "inactive") {
+      dispatch(editBlogStatusAction({ status: "active", slug }))
+    } else {
+      dispatch(editBlogStatusAction({ status: "inactive", slug }))
+    }
   }
 
   useEffect(() => {
@@ -85,13 +101,31 @@ const SingleBlog = () => {
 
           <div className="titles">
             <h1>{selectedBlog?.title}</h1>
-            <div className="d-flex gap-3 align-items-center">
-              <Edit onClick={handleEdit} />
-              <Delete
-                style={{ color: "var(--main-color)" }}
-                onClick={() => handleModal(selectedBlog._id)}
-              />
-            </div>
+
+            {user?._id && page === "authorized" && (
+              <div className="d-flex gap-3 align-items-center">
+                {selectedBlog.status === "active" ? (
+                  <div className="status-toggle">
+                    <CheckCircle
+                      className="text-success"
+                      onClick={() => handlePostStatus(selectedBlog.status)}
+                    />
+                  </div>
+                ) : (
+                  <div className="status-toggle inactive">
+                    <CheckCircle
+                      className="text-secondary"
+                      onClick={() => handlePostStatus(selectedBlog.status)}
+                    />
+                  </div>
+                )}
+                <Edit onClick={handleEdit} />
+                <Delete
+                  style={{ color: "var(--main-color)" }}
+                  onClick={() => handleModal(selectedBlog._id)}
+                />
+              </div>
+            )}
 
             {/* <h6></h6> */}
           </div>
