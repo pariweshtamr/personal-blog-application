@@ -2,8 +2,8 @@ import axios from "axios"
 
 const rootUrl =
   process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_ROOT_URL
-    : "http://blogapplication-env.eba-dvh9qzrx.us-east-1.elasticbeanstalk.com/api"
+    ? process.env.REACT_APP_API_ROOT_URL + "/api"
+    : "http://blogapplication-env.eba-dvh9qzrx.us-east-1.elasticbeanstalk.com"
 
 const authEP = rootUrl + "/auth"
 

@@ -2,7 +2,7 @@ import { requestApi } from "./axiosHelper"
 
 const rootUrl =
   process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_ROOT_URL
+    ? process.env.REACT_APP_API_ROOT_URL + "/api"
     : "http://blogapplication-env.eba-dvh9qzrx.us-east-1.elasticbeanstalk.com/api"
 
 const authEP = rootUrl + "/auth"
