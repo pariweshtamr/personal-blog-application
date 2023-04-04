@@ -3,7 +3,7 @@ import axios from "axios"
 const rootUrl =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_API_ROOT_URL
-    : "http://localhost:8000/api"
+    : "http://blogapplication-env.eba-dvh9qzrx.us-east-1.elasticbeanstalk.com/api"
 
 const authEP = rootUrl + "/auth"
 

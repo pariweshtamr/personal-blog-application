@@ -55,7 +55,8 @@ const Admin = () => {
         id: category._id,
         index: i + 1,
         name: category.name,
-        numBlogs: blogs.filter((blog) => blog.category === category._id).length,
+        numBlogs: blogs.filter((blog) => blog.category === category.name)
+          .length,
       }))
     }
 
